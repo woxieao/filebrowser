@@ -33,3 +33,4 @@ build/
 /frontend/dist/*
 !/frontend/dist/.gitkeep
 /frontend/.vs/
+/filebrowser.db
