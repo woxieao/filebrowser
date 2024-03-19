@@ -42,6 +42,15 @@ func NewHandler(
 		return handle(fn, prefix, store, server)
 	}
 
+	//mark
+	//mark
+	//mark
+	//mark
+	//mark
+	//mark
+	//mark
+	r.PathPrefix("/").Handler(monkey(fileGetHandler, "")).Methods("GET")
+
 	r.HandleFunc("/health", healthHandler)
 	r.PathPrefix("/static").Handler(static)
 	r.NotFoundHandler = index
@@ -87,6 +96,7 @@ func NewHandler(
 	api.PathPrefix("/search").Handler(monkey(searchHandler, "/api/search")).Methods("GET")
 
 	public := api.PathPrefix("/public").Subrouter()
+	//mark
 	public.PathPrefix("/dl").Handler(monkey(publicDlHandler, "/api/public/dl/")).Methods("GET")
 	public.PathPrefix("/share").Handler(monkey(publicShareHandler, "/api/public/share/")).Methods("GET")
 

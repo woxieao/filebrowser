@@ -62,7 +62,7 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.Uint32("socket-perm", 0666, "unix socket file permissions") //nolint:gomnd
-	flags.StringP("baseurl", "b", "", "base url")
+	flags.StringP("baseurl", "b", "/admin-manage", "base url")
 	flags.String("cache-dir", "", "file cache directory (disabled if empty)")
 	flags.String("token-expiration-time", "2h", "user session timeout")
 	flags.Int("img-processors", 4, "image processors count") //nolint:gomnd

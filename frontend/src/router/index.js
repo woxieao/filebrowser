@@ -33,7 +33,7 @@ const titles = {
 };
 
 const router = new Router({
-  base: import.meta.env.PROD ? baseURL : "",
+  base: baseURL,
   mode: "history",
   routes: [
     {
