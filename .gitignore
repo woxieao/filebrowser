@@ -1,9 +1,9 @@
-*.db
+# *.db
 *.bak
 _old
 rice-box.go
 .idea/
-/filebrowser
+# /filebrowser
 /filebrowser.exe
 /dist
 
@@ -32,3 +32,4 @@ build/
 
 /frontend/dist/*
 !/frontend/dist/.gitkeep
+/frontend/.vs/

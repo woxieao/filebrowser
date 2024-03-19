@@ -199,6 +199,19 @@ func rawDirHandler(w http.ResponseWriter, r *http.Request, d *data, file *files.
 	return 0, nil
 }
 
+func rawFileInlineHandler(w http.ResponseWriter, r *http.Request, file *files.FileInfo) (int, error) {
+	fd, err := file.Fs.Open(file.Path)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+	defer fd.Close()
+
+	w.Header().Add("Content-Security-Policy", `script-src 'none';`)
+	w.Header().Set("Cache-Control", "private")
+	http.ServeContent(w, r, file.Name, file.ModTime, fd)
+	return 0, nil
+}
+
 func rawFileHandler(w http.ResponseWriter, r *http.Request, file *files.FileInfo) (int, error) {
 	fd, err := file.Fs.Open(file.Path)
 	if err != nil {
