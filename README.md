@@ -1,3 +1,13 @@
+Based on the FileBrowser project, refactored into a page browsing application, like an online IIS, where you can upload, browse in real-time, and publish pages.
+Default account: pagesadmin
+Default password: changethispwd
+
+基于 FileBrowser项目,重构为了一个页面浏览应用,就像一个在线的IIS,可以上传,并且实时浏览,发布页面.
+默认账号pagesadmin
+默认密码changethispwd
+
+
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/filebrowser/logo/master/banner.png" width="550"/>
 </p>
