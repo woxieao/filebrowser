@@ -24,8 +24,8 @@ func NewHandler(
 ) (http.Handler, error) {
 	server.Clean()
 
-	r := mux.NewRouter()
-	r.Use(func(next http.Handler) http.Handler {
+	router := mux.NewRouter()
+	router.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Security-Policy", `default-src 'self'; style-src 'unsafe-inline';`)
 			next.ServeHTTP(w, r)
@@ -36,26 +36,17 @@ func NewHandler(
 	// NOTE: This fixes the issue where it would redirect if people did not put a
 	// trailing slash in the end. I hate this decision since this allows some awful
 	// URLs https://www.gorillatoolkit.org/pkg/mux#Router.SkipClean
-	r = r.SkipClean(true)
+	router = router.SkipClean(true)
 
 	monkey := func(fn handleFunc, prefix string) http.Handler {
 		return handle(fn, prefix, store, server)
 	}
 
-	//mark
-	//mark
-	//mark
-	//mark
-	//mark
-	//mark
-	//mark
-	r.PathPrefix("/").Handler(monkey(fileGetHandler, "")).Methods("GET")
+	router.HandleFunc("/health", healthHandler)
+	router.PathPrefix("/static").Handler(static)
+	router.NotFoundHandler = index
 
-	r.HandleFunc("/health", healthHandler)
-	r.PathPrefix("/static").Handler(static)
-	r.NotFoundHandler = index
-
-	api := r.PathPrefix("/api").Subrouter()
+	api := router.PathPrefix("/api").Subrouter()
 
 	tokenExpirationTime := server.GetTokenExpirationTime(DefaultTokenExpirationTime)
 	api.Handle("/login", monkey(loginHandler(tokenExpirationTime), ""))
@@ -96,9 +87,8 @@ func NewHandler(
 	api.PathPrefix("/search").Handler(monkey(searchHandler, "/api/search")).Methods("GET")
 
 	public := api.PathPrefix("/public").Subrouter()
-	//mark
 	public.PathPrefix("/dl").Handler(monkey(publicDlHandler, "/api/public/dl/")).Methods("GET")
 	public.PathPrefix("/share").Handler(monkey(publicShareHandler, "/api/public/share/")).Methods("GET")
 
-	return stripPrefix(server.BaseURL, r), nil
+	return stripPrefix(server.BaseURL, router), nil
 }

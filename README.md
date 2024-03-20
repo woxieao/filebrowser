@@ -32,7 +32,7 @@ For installation instructions please refer to our docs at [https://filebrowser.o
 
 [Command Runner](https://filebrowser.org/configuration/command-runner) - The command runner is a feature that enables you to execute any shell command you want before or after a certain event.
 
-[Custom Branding](https://filebrowser.org/configuration/custom-branding) - You can customize your File Browser installation by change its name to any other you want, by adding a global custom style sheet and by using your own logotype if you want.
+[Custom Branding](https://filebrowser.org/configuration/custom-branding) - You can customize your Pages Browser installation by change its name to any other you want, by adding a global custom style sheet and by using your own logotype if you want.
 
 ## Contributing
 

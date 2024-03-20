@@ -39,16 +39,16 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	cobra.MousetrapHelpText = ""
 
-	rootCmd.SetVersionTemplate("File Browser version {{printf \"%s\" .Version}}\n")
+	rootCmd.SetVersionTemplate("Pages Browser version {{printf \"%s\" .Version}}\n")
 
 	flags := rootCmd.Flags()
 	persistent := rootCmd.PersistentFlags()
 
 	persistent.StringVarP(&cfgFile, "config", "c", "", "config file path")
-	persistent.StringP("database", "d", "./filebrowser.db", "database path")
+	persistent.StringP("database", "d", "./database.db", "database path")
 	flags.Bool("noauth", false, "use the noauth auther when using quick setup")
-	flags.String("username", "admin", "username for the first user when using quick config")
-	flags.String("password", "", "hashed password for the first user when using quick config (default \"admin\")")
+	flags.String("username", "pagesadmin", "username for the first user when using quick config")
+	flags.String("password", "", "hashed password for the first user when using quick config (default \"changethispwd\")")
 
 	addServerFlags(flags)
 }
@@ -62,7 +62,7 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.Uint32("socket-perm", 0666, "unix socket file permissions") //nolint:gomnd
-	flags.StringP("baseurl", "b", "/admin-manage", "base url")
+	flags.StringP("baseurl", "b", "/pages-browser-admin", "base url")
 	flags.String("cache-dir", "", "file cache directory (disabled if empty)")
 	flags.String("token-expiration-time", "2h", "user session timeout")
 	flags.Int("img-processors", 4, "image processors count") //nolint:gomnd
@@ -75,11 +75,11 @@ func addServerFlags(flags *pflag.FlagSet) {
 var rootCmd = &cobra.Command{
 	Use:   "filebrowser",
 	Short: "A stylish web-based file browser",
-	Long: `File Browser CLI lets you create the database to use with File Browser,
+	Long: `Pages Browser CLI lets you create the database to use with Pages Browser,
 manage your users and all the configurations without acessing the
 web interface.
 
-If you've never run File Browser, you'll need to have a database for
+If you've never run Pages Browser, you'll need to have a database for
 it. Don't worry: you don't need to setup a separate database server.
 We're using Bolt DB which is a single file database and all managed
 by ourselves.
@@ -107,7 +107,7 @@ The environment variables are prefixed by "FB_" followed by the option
 name in caps. So to set "database" via an env variable, you should
 set FB_DATABASE.
 
-Also, if the database path doesn't exist, File Browser will enter into
+Also, if the database path doesn't exist, Pages Browser will enter into
 the quick setup mode and a new database will be bootstraped and a new
 user created with the credentials from options "username" and "password".`,
 	Run: python(func(cmd *cobra.Command, args []string, d pythonData) {
@@ -324,7 +324,7 @@ func quickSetup(flags *pflag.FlagSet, d pythonData) {
 		UserHomeBasePath: settings.DefaultUsersHomeBasePath,
 		Defaults: settings.UserDefaults{
 			Scope:       ".",
-			Locale:      "en",
+			Locale:      "zh-cn",
 			SingleClick: false,
 			Perm: users.Permissions{
 				Admin:    false,
@@ -378,7 +378,7 @@ func quickSetup(flags *pflag.FlagSet, d pythonData) {
 	password := getParam(flags, "password")
 
 	if password == "" {
-		password, err = users.HashPwd("admin")
+		password, err = users.HashPwd("changethispwd")
 		checkErr(err)
 	}
 

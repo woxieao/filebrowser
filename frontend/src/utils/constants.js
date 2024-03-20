@@ -1,4 +1,4 @@
-const name = window.FileBrowser.Name || "File Browser";
+const name = window.FileBrowser.Name || "Pages Browser";
 const disableExternal = window.FileBrowser.DisableExternal;
 const disableUsedPercentage = window.FileBrowser.DisableUsedPercentage;
 const baseURL = window.FileBrowser.BaseURL;
@@ -7,7 +7,7 @@ const recaptcha = window.FileBrowser.ReCaptcha;
 const recaptchaKey = window.FileBrowser.ReCaptchaKey;
 const signup = window.FileBrowser.Signup;
 const version = window.FileBrowser.Version;
-const logoURL = `${staticURL}/img/logo.svg`;
+const logoURL = `${staticURL}/img/logo.png`;
 const noAuth = window.FileBrowser.NoAuth;
 const authMethod = window.FileBrowser.AuthMethod;
 const loginPage = window.FileBrowser.LoginPage;

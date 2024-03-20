@@ -1,6 +1,6 @@
 {
   "port": 80,
-  "baseURL": "",
+  "baseURL": "/pages-browser-admin",
   "address": "",
   "log": "stdout",
   "database": "/database.db",
